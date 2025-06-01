@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonk16z Integration Guide</title>
+    <link rel="icon" type="" href="bonk.jpg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #ff7b00 0%, #ff9500 50%, #ffb366 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            z-index: 10;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 20px;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .integration-header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .integration-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .integration-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .quick-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .quick-link {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .quick-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .code-lang {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 4px 8px;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-item {
+            counter-increment: step-counter;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #ffd700;
+            position: relative;
+        }
+
+        .step-item::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: -15px;
+            top: 15px;
+            background: #ffd700;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+
+        .step-content {
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+
+        .endpoint-card {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .endpoint-method {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .endpoint-method.post { background: #2196F3; }
+        .endpoint-method.put { background: #FF9800; }
+        .endpoint-method.delete { background: #f44336; }
+
+        .endpoint-url {
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .warning-box {
+            background: rgba(255, 193, 7, 0.1);
+            border: 2px solid rgba(255, 193, 7, 0.4);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .warning-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 40px;
+            height: 40px;
+            top: 70%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+            
+            .integration-header {
+                padding: 25px;
+            }
+            
+            .integration-title {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .code-block {
+                font-size: 0.8rem;
+            }
+            
+            .step-content {
+                margin-left: 10px;
+            }
+        }
+
+        ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+
+    <header class="header">
+        <div class="logo">
+            <img src="bonk.jpg" alt="Bonk16z Logo" class="logo-icon">
+            Bonk16z
+        </div>
+        <a href="Bonk16z-hub.html" class="back-btn">← Back to Hub</a>
+    </header>
+
+    <main class="main-content">
+        <div class="integration-header">
+            <h1 class="integration-title">🤖 Bonk16z Integration</h1>
+            <p class="integration-subtitle">Integrate Bonk16z with your applications using our API and webhook system</p>
+            <div class="quick-links">
+                <a href="#api" class="quick-link">API Docs</a>
+                <a href="#webhooks" class="quick-link">Webhooks</a>
+                <a href="#examples" class="quick-link">Examples</a>
+            </div>
+        </div>
+
+        <div class="section" id="api">
+            <h2 class="section-title">🔌 API Documentation</h2>
+            <div class="section-content">
+                <p>Integrate Bonk16z into your applications using our REST API. Built on ElizaOS architecture with custom endpoints for Bonk16z-specific features.</p>
+                
+                <h3 style="margin: 25px 0 15px 0; color: #ffd700;">Authentication</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Authorization Header</span>
+                        <button class="copy-btn" onclick="copyToClipboard('auth-header')">Copy</button>
+                    </div>
+                    <pre id="auth-header"><code>Authorization: Bearer YOUR_API_KEY
+Content-Type: application/json</code></pre>
+                </div>
+                
+                <h3 style="margin: 25px 0 15px 0; color: #ffd700;">Core Endpoints</h3>
+                
+                <div class="endpoint-card">
+                    <div>
+                        <span class="endpoint-method post">POST</span>
+                        <span class="endpoint-url">/api/v1/chat</span>
+                    </div>
+                    <p style="margin: 10px 0;"><strong>Send a message to Bonk16z</strong></p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Request Body</span>
+                        </div>
+                        <pre><code>{
+  "message": "Hey Bonk16z, what's your take on meme coins?",
+  "userId": "user_12345",
+  "sessionId": "session_abc123",
+  "context": {
+    "platform": "api",
+    "channel": "general"
+  }
+}</code></pre>
+                    </div>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Response</span>
+                        </div>
+                        <pre><code>{
+  "response": "Meme coins are the wild west of crypto! 🤠 They bring fun...",
+  "messageId": "msg_789xyz",
+  "timestamp": "2025-05-24T12:00:00Z",
+  "personality": "casual",
+  "saveToConscience": true
+}</code></pre>
+                    </div>
+                </div>
+                
+                <div class="endpoint-card">
+                    <div>
+                        <span class="endpoint-method">GET</span>
+                        <span class="endpoint-url">/api/v1/conscience</span>
+                    </div>
+                    <p style="margin: 10px 0;"><strong>Retrieve conversation history</strong></p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Query Parameters</span>
+                        </div>
+                        <pre><code>?limit=10&sort=recent&category=crypto&minUpvotes=5</code></pre>
+                    </div>
+                </div>
+                
+                <div class="endpoint-card">
+                    <div>
+                        <span class="endpoint-method post">POST</span>
+                        <span class="endpoint-url">/api/v1/conscience/upvote</span>
+                    </div>
+                    <p style="margin: 10px 0;"><strong>Upvote a conversation</strong></p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Request Body</span>
+                        </div>
+                        <pre><code>{
+  "conversationId": "conv_12345",
+  "userId": "user_67890"
+}</code></pre>
+                    </div>
+                </div>
+                
+                <h3 style="margin: 25px 0 15px 0; color: #ffd700;">Rate Limits</h3>
+                <ul>
+                    <li><strong>Chat API:</strong> 60 requests per minute per user</li>
+                    <li><strong>Conscience API:</strong> 100 requests per minute</li>
+                    <li><strong>Bulk operations:</strong> 10 requests per minute</li>
+                </ul>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Example: Node.js Implementation</span>
+                        <button class="copy-btn" onclick="copyToClipboard('nodejs-example')">Copy</button>
+                    </div>
+                    <pre id="nodejs-example"><code>const fetch = require('node-fetch');
+
+class Bonk16zAPI {
+  constructor(apiKey) {
+    this.apiKey = apiKey;
+    this.baseUrl = 'https://api.Bonk16z.ai/v1';
+  }
+  
+  async chat(message, userId, options = {}) {
+    const response = await fetch(`${this.baseUrl}/chat`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${this.apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message,
+        userId,
+        sessionId: options.sessionId || this.generateSessionId(),
+        context: options.context || {}
+      })
+    });
+    
+    return await response.json();
+  }
+  
+  generateSessionId() {
+    return `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  }
+}
+
+// Usage
+const Bonk16z = new Bonk16zAPI('your_api_key_here');
+
+Bonk16z.chat('Tell me about DeFi', 'user123')
+  .then(response => console.log(response.response))
+  .catch(error => console.error('Error:', error));</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="webhooks">
+            <h2 class="section-title">🔗 Webhook Setup</h2>
+            <div class="section-content">
+                <p>Set up webhooks to receive real-time notifications about Bonk16z interactions, new conscience entries, and system events.</p>
+                
+                <ol class="step-list">
+                    <li class="step-item">
+                        <div class="step-title">Configure Webhook URL</div>
+                        <div class="step-content">
+                            <p>Set up your endpoint to receive webhook events:</p>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-lang">POST</span>
+                                    <span>/api/v1/webhooks/register</span>
+                                </div>
+                                <pre><code>{
+  "url": "https://yourdomain.com/Bonk16z-webhook",
+  "events": ["chat.message", "conscience.new", "conscience.upvote"],
+  "secret": "your_webhook_secret"
+}</code></pre>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <li class="step-item">
+                        <div class="step-title">Handle Webhook Events</div>
+                        <div class="step-content">
+                            <p>Your endpoint will receive events in this format:</p>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-lang">Webhook Payload</span>
+                                </div>
+                                <pre><code>{
+  "event": "chat.message",
+  "timestamp": "2025-05-24T12:00:00Z",
+  "data": {
+    "messageId": "msg_123",
+    "userId": "user_456", 
+    "message": "What's up Bonk16z?",
+    "response": "Hey there! Just vibing in the digital realm 🚀",
+    "platform": "discord",
+    "channel": "general"
+  },
+  "signature": "sha256=abc123def456..."
+}</code></pre>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <li class="step-item">
+                        <div class="step-title">Verify Webhook Signatures</div>
+                        <div class="step-content">
+                            <p>Always verify webhook authenticity:</p>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-lang">Node.js Verification</span>
+                                    <button class="copy-btn" onclick="copyToClipboard('webhook-verify')">Copy</button>
+                                </div>
+                                <pre id="webhook-verify"><code>const crypto = require('crypto');
+
+function verifyWebhookSignature(payload, signature, secret) {
+  const expectedSignature = crypto
+    .createHmac('sha256', secret)
+    .update(payload, 'utf8')
+    .digest('hex');
+    
+  const receivedSignature = signature.replace('sha256=', '');
+  
+  return crypto.timingSafeEqual(
+    Buffer.from(expectedSignature, 'hex'),
+    Buffer.from(receivedSignature, 'hex')
+  );
+}
+
+// Express.js webhook handler
+app.post('/Bonk16z-webhook', express.raw({type: 'application/json'}), (req, res) => {
+  const signature = req.headers['x-Bonk16z-signature'];
+  const payload = req.body;
+  
+  if (!verifyWebhookSignature(payload, signature, process.env.WEBHOOK_SECRET)) {
+    return res.status(401).send('Invalid signature');
+  }
+  
+  const event = JSON.parse(payload);
+  console.log('Received event:', event.event, event.data);
+  
+  res.status(200).send('OK');
+});</code></pre>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+                
+                <h3 style="margin: 25px 0 15px 0; color: #ffd700;">Available Events</h3>
+                <ul>
+                    <li><strong>chat.message:</strong> New conversation with Bonk16z</li>
+                    <li><strong>conscience.new:</strong> Conversation saved to conscience</li>
+                    <li><strong>conscience.upvote:</strong> Conversation received an upvote</li>
+                    <li><strong>user.join:</strong> New user starts chatting with Bonk16z</li>
+                    <li><strong>system.error:</strong> System errors or rate limit hits</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section" id="examples">
+            <h2 class="section-title">💡 Integration Examples</h2>
+            <div class="section-content">
+                <h3 style="margin: 0 0 15px 0; color: #ffd700;">Discord Bot with Custom Commands</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">JavaScript</span>
+                        <button class="copy-btn" onclick="copyToClipboard('discord-bot')">Copy</button>
+                    </div>
+                    <pre id="discord-bot"><code>const { Client, GatewayIntentBits } = require('discord.js');
+const Bonk16zAPI = require('./Bonk16z-api');
+
+const client = new Client({ 
+  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] 
+});
+const Bonk16z = new Bonk16zAPI(process.env.Bonk16z_API_KEY);
+
+client.on('messageCreate', async (message) => {
+  if (message.author.bot) return;
+  
+  // Respond to mentions
+  if (message.mentions.has(client.user)) {
+    const response = await Bonk16z.chat(
+      message.content.replace(`<@${client.user.id}>`, '').trim(),
+      message.author.id,
+      {
+        context: {
+          platform: 'discord',
+          guild: message.guild.name,
+          channel: message.channel.name
+        }
+      }
+    );
+    
+    message.reply(response.response);
+  }
+});
+
+client.login(process.env.DISCORD_TOKEN);</code></pre>
+                </div>
+                
+                <h3 style="margin: 25px 0 15px 0; color: #ffd700;">React Chat Component</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">React + TypeScript</span>
+                        <button class="copy-btn" onclick="copyToClipboard('react-chat')">Copy</button>
+                    </div>
+                    <pre id="react-chat"><code>import React, { useState } from 'react';
+
+const Bonk16zChat: React.FC = () => {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  
+  const sendMessage = async () => {
+    if (!input.trim()) return;
+    
+    setLoading(true);
+    const userMessage = { author: 'user', content: input, timestamp: new Date() };
+    setMessages(prev => [...prev, userMessage]);
+    
+    try {
+      const response = await fetch('/api/Bonk16z/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: input,
+          userId: 'web_user_123'
+        })
+      });
+      
+      const data = await response.json();
+      const botMessage = { 
+        author: 'Bonk16z', 
+        content: data.response, 
+        timestamp: new Date() 
+      };
+      
+      setMessages(prev => [...prev, botMessage]);
+    } catch (error) {
+      console.error('Chat error:', error);
+    }
+    
+    setInput('');
+    setLoading(false);
+  };
+  
+  return (
+    &lt;div className="Bonk16z-chat"&gt;
+      &lt;div className="messages"&gt;
+        {messages.map((msg, i) => (
+          &lt;div key={i} className={`message ${msg.author}`}&gt;
+            &lt;strong&gt;{msg.author}:&lt;/strong&gt; {msg.content}
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+      &lt;div className="input-area"&gt;
+        &lt;input 
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+          placeholder="Chat with Bonk16z..."
+          disabled={loading}
+        /&gt;
+        &lt;button onClick={sendMessage} disabled={loading}&gt;
+          {loading ? '...' : 'Send'}
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+                </div>
+                
+                <div class="warning-box">
+                    <div class="warning-title">🔧 Need Help?</div>
+                    <p>Check out our <a href="#" style="color: #ffd700;">GitHub repository</a> for more examples, or join our <a href="#" style="color: #ffd700;">Discord community</a> for integration support. We're always happy to help developers get Bonk16z working in their projects!</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                // Show temporary feedback
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.background = 'rgba(76, 175, 80, 0.3)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'rgba(255, 255, 255, 0.2)';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

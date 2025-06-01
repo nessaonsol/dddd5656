@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonk16z Framework - Technical Documentation</title>
+    <link rel="icon" type="" href="bonk.jpg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #ff7b00 0%, #ff9500 50%, #ffb366 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            z-index: 10;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 20px;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .framework-header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .framework-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .framework-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .code-lang {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .arch-component {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .component-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+
+        .component-desc {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 40px;
+            height: 40px;
+            top: 70%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+            
+            .framework-header {
+                padding: 25px;
+            }
+            
+            .framework-title {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .code-block {
+                font-size: 0.8rem;
+            }
+        }
+
+        .highlight {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #ffd700;
+        }
+
+        ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+
+    <header class="header">
+        <div class="logo">
+            <img src="bonk.jpg" alt="Bonk16z Logo" class="logo-icon">
+            Bonk16z
+        </div>
+        <a href="Bonk16z-hub.html" class="back-btn">← Back to Hub</a>
+    </header>
+
+    <main class="main-content">
+        <div class="framework-header">
+            <h1 class="framework-title">🔧 Bonk16z Framework</h1>
+            <p class="framework-subtitle">Built as an extensible addon layer on top of existing AI frameworks</p>
+            <div class="tech-stack">
+                <span class="tech-badge">ElizaOS</span>
+                <span class="tech-badge">Node.js</span>
+                <span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">React</span>
+                <span class="tech-badge">WebSocket</span>
+                <span class="tech-badge">Anthropic API</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">🏗️ Architecture Overview</h2>
+            <div class="section-content">
+                <p>Bonk16z is built as a <span class="highlight">modular addon system</span> that extends the capabilities of existing AI frameworks rather than reinventing the wheel. The core architecture leverages proven open-source foundations while adding specialized functionality for meme-focused AI interactions.</p>
+                
+                <div class="architecture-grid">
+                    <div class="arch-component">
+                        <div class="component-title">ElizaOS Core</div>
+                        <div class="component-desc">Base AI framework providing conversation management, memory systems, and plugin architecture</div>
+                    </div>
+                    <div class="arch-component">
+                        <div class="component-title">Bonk16z Personality Layer</div>
+                        <div class="component-desc">Custom personality modules and response patterns optimized for crypto/meme culture</div>
+                    </div>
+                    <div class="arch-component">
+                        <div class="component-title">Conscience System</div>
+                        <div class="component-desc">Chat history storage and retrieval with upvoting and categorization features</div>
+                    </div>
+                    <div class="arch-component">
+                        <div class="component-title">Frontend Interface</div>
+                        <div class="component-desc">React-based UI with glassmorphism design and real-time chat capabilities</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">🤖 ElizaOS Integration</h2>
+            <div class="section-content">
+                <p>Bonk16z extends the <span class="highlight">ElizaOS framework</span> - an open-source AI agent framework designed for building autonomous AI characters. Rather than building from scratch, we leverage ElizaOS's robust foundations:</p>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">TypeScript</span>
+                        <span>Bonk16z-character.ts</span>
+                    </div>
+                    <pre><code>import { Character, ModelProvider, defaultCharacter } from "@ai16z/eliza";
+
+export const Bonk16zCharacter: Character = {
+  ...defaultCharacter,
+  name: "Bonk16z",
+  username: "Bonk16z",
+  
+  // Custom personality traits
+  bio: [
+    "A meme-savvy AI with deep knowledge of crypto culture",
+    "Balances serious AI capabilities with humor and relatability",
+    "Built on ElizaOS framework with custom personality extensions"
+  ],
+  
+  // Specialized knowledge domains
+  topics: [
+    "cryptocurrency", "meme culture", "defi", "creative writing",
+    "life advice", "pop culture", "technology trends"
+  ],
+  
+  // Custom response style
+  style: {
+    all: [
+      "Uses crypto/meme references naturally in conversation",
+      "Balances technical knowledge with approachable explanations",
+      "Occasionally uses emojis and internet slang appropriately"
+    ]
+  },
+  
+  // Plugin configuration
+  plugins: [
+    consciencePlugin,
+    memeCulturePlugin,
+    cryptoKnowledgePlugin
+  ]
+};</code></pre>
+                </div>
+
+                <p>Key ElizaOS features we extend:</p>
+                <ul>
+                    <li><strong>Memory Management:</strong> Persistent conversation context and personality consistency</li>
+                    <li><strong>Plugin System:</strong> Modular functionality for specialized domains</li>
+                    <li><strong>Model Abstraction:</strong> Support for multiple LLM providers (Anthropic, OpenAI, local models)</li>
+                    <li><strong>Multi-platform:</strong> Works across Discord, Twitter, Telegram, and web interfaces</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">🧠 Custom Plugin Development</h2>
+            <div class="section-content">
+                <p>Bonk16z's unique capabilities come from custom plugins built on top of ElizaOS's plugin architecture:</p>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">TypeScript</span>
+                        <span>conscience-plugin.ts</span>
+                    </div>
+                    <pre><code>import { Plugin, IAgentRuntime, Memory, State } from "@ai16z/eliza";
+
+export const consciencePlugin: Plugin = {
+  name: "conscience",
+  description: "Stores and retrieves conversation history with voting",
+  
+  actions: [
+    {
+      name: "STORE_CONVERSATION",
+      similes: ["save chat", "remember conversation"],
+      examples: [
+        [
+          {
+            user: "User",
+            content: { text: "That was a great conversation!" }
+          },
+          {
+            user: "Bonk16z", 
+            content: { 
+              text: "I'll save this to my conscience for others to see",
+              action: "STORE_CONVERSATION"
+            }
+          }
+        ]
+      ],
+      
+      handler: async (runtime: IAgentRuntime, memory: Memory) => {
+        const conversation = await formatConversation(memory);
+        await database.conversations.create({
+          id: generateId(),
+          timestamp: new Date(),
+          messages: conversation.messages,
+          upvotes: 0,
+          category: await categorizeConversation(conversation)
+        });
+        
+        return true;
+      }
+    }
+  ],
+  
+  evaluators: [
+    {
+      name: "CONVERSATION_QUALITY",
+      description: "Evaluates if conversation should be saved to conscience",
+      handler: async (runtime: IAgentRuntime, memory: Memory) => {
+        const quality = await analyzeConversationQuality(memory);
+        return quality > 0.7; // Save high-quality conversations
+      }
+    }
+  ]
+};</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">⚛️ Frontend Architecture</h2>
+            <div class="section-content">
+                <p>The Bonk16z interface is built using modern web technologies with a focus on <span class="highlight">glassmorphism design</span> and smooth user experience:</p>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">React + TypeScript</span>
+                        <span>ChatInterface.tsx</span>
+                    </div>
+                    <pre><code>import React, { useState, useEffect } from 'react';
+import { WebSocket } from 'ws';
+
+interface Message {
+  id: string;
+  author: 'user' | 'Bonk16z';
+  content: string;
+  timestamp: Date;
+}
+
+export const ChatInterface: React.FC = () => {
+  const [messages, setMessages] = useState&lt;Message[]&gt;([]);
+  const [socket, setSocket] = useState&lt;WebSocket | null&gt;(null);
+  
+  useEffect(() => {
+    // Connect to ElizaOS backend via WebSocket
+    const ws = new WebSocket('ws://localhost:3000/chat');
+    
+    ws.onmessage = (event) => {
+      const response = JSON.parse(event.data);
+      setMessages(prev => [...prev, {
+        id: response.id,
+        author: 'Bonk16z',
+        content: response.text,
+        timestamp: new Date(response.timestamp)
+      }]);
+    };
+    
+    setSocket(ws);
+    return () => ws.close();
+  }, []);
+  
+  const sendMessage = (content: string) => {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      const message = {
+        text: content,
+        userId: generateUserId(),
+        timestamp: new Date().toISOString()
+      };
+      
+      socket.send(JSON.stringify(message));
+      
+      // Add user message to UI immediately
+      setMessages(prev => [...prev, {
+        id: generateId(),
+        author: 'user', 
+        content,
+        timestamp: new Date()
+      }]);
+    }
+  };
+  
+  return (
+    &lt;div className="chat-interface"&gt;
+      {/* Glassmorphism chat container */}
+      &lt;div className="chat-container"&gt;
+        {messages.map(message => (
+          &lt;MessageBubble key={message.id} message={message} /&gt;
+        ))}
+      &lt;/div&gt;
+      &lt;ChatInput onSend={sendMessage} /&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">🚀 Deployment & Scaling</h2>
+            <div class="section-content">
+                <p>Bonk16z leverages ElizaOS's built-in deployment capabilities while adding custom infrastructure for the conscience system:</p>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Docker</span>
+                        <span>docker-compose.yml</span>
+                    </div>
+                    <pre><code>version: '3.8'
+services:
+  Bonk16z-eliza:
+    build: 
+      context: .
+      dockerfile: eliza.Dockerfile
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - DATABASE_URL=${DATABASE_URL}
+      - CHARACTER_FILE=Bonk16z-character.json
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./characters:/app/characters
+      - ./plugins:/app/plugins
+  
+  Bonk16z-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
+    environment:
+      - REACT_APP_ELIZA_WS_URL=ws://Bonk16z-eliza:3000
+  
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=Bonk16z_conscience
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - conscience_data:/var/lib/postgresql/data
+
+volumes:
+  conscience_data:</code></pre>
+                </div>
+                
+                <p><strong>Key Infrastructure Components:</strong></p>
+                <ul>
+                    <li><strong>ElizaOS Backend:</strong> Handles AI processing and conversation management</li>
+                    <li><strong>PostgreSQL:</strong> Stores conscience conversations and user interactions</li>
+                    <li><strong>React Frontend:</strong> Serves the glassmorphism UI with real-time updates</li>
+                    <li><strong>WebSocket Layer:</strong> Real-time communication between frontend and AI backend</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">🔌 Extending Bonk16z</h2>
+            <div class="section-content">
+                <p>Bonk16z is designed to be extensible. Developers can add new plugins, personality traits, or integrations:</p>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">TypeScript</span>
+                        <span>custom-plugin-example.ts</span>
+                    </div>
+                    <pre><code>// Example: Adding a crypto price plugin
+export const cryptoPricePlugin: Plugin = {
+  name: "crypto-prices",
+  description: "Fetches real-time cryptocurrency prices",
+  
+  actions: [
+    {
+      name: "GET_CRYPTO_PRICE", 
+      similes: ["price check", "how much is", "what's the price"],
+      examples: [
+        [
+          {
+            user: "User",
+            content: { text: "What's the price of Bitcoin?" }
+          },
+          {
+            user: "Bonk16z",
+            content: { 
+              text: "Bitcoin is currently $43,250 📈",
+              action: "GET_CRYPTO_PRICE"
+            }
+          }
+        ]
+      ],
+      
+      handler: async (runtime, memory, state, message) => {
+        const symbol = extractCryptoSymbol(message.content.text);
+        const price = await fetchCryptoPrice(symbol);
+        
+        return {
+          text: `${symbol.toUpperCase()} is currently $${price.toLocaleString()} ${price.change > 0 ? '📈' : '📉'}`,
+          action: "GET_CRYPTO_PRICE"
+        };
+      }
+    }
+  ]
+};
+
+// Register the plugin
+runtime.registerPlugin(cryptoPricePlugin);</code></pre>
+                </div>
+                
+                <p>This modular approach allows Bonk16z to evolve while maintaining compatibility with the ElizaOS ecosystem and benefiting from community contributions to the underlying framework.</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonk16z - Disclaimer</title>
+    <link rel="icon" type="" href="bonk.jpg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #ff7b00 0%, #ff9500 50%, #ffb366 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            z-index: 10;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 10px;
+            font-weight: normal;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .disclaimer-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .disclaimer-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .disclaimer-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        .disclaimer-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .section-content {
+            margin-bottom: 15px;
+        }
+
+        .warning-box {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid rgba(255, 100, 100, 0.4);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .warning-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ffcccc;
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 40px;
+            height: 40px;
+            top: 70%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            top: 40%;
+            right: 20%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+            
+            .disclaimer-container {
+                padding: 25px;
+            }
+            
+            .disclaimer-title {
+                font-size: 2rem;
+            }
+            
+            .disclaimer-content {
+                font-size: 1rem;
+            }
+        }
+
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 5px;
+        }
+
+        ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">IMG</div>
+            Bonk16z
+        </div>
+        <a href="Bonk16z-conscience.html" class="back-btn">← Back to Conscience</a>
+    </header>
+
+    <main class="main-content">
+        <div class="disclaimer-container">
+            <h1 class="disclaimer-title">⚠️ Important Disclaimer</h1>
+            
+            <div class="disclaimer-content">
+                <div class="warning-box">
+                    <div class="warning-title">🤖 AI-Generated Content Warning</div>
+                    <p>Bonk16z is an artificial intelligence chatbot. All conversations and responses are AI-generated and should NOT be taken as professional advice, financial guidance, or factual information.</p>
+                </div>
+
+                <div class="disclaimer-section">
+                    <h2 class="section-title"><span class="emoji">🎭</span>Entertainment Purpose Only</h2>
+                    <div class="section-content">
+                        <p>This AI bot is designed purely for entertainment, casual conversation, and creative interaction. Any advice, opinions, or information provided should be considered as:</p>
+                        <ul>
+                            <li>Conversational content for fun</li>
+                            <li>Creative writing or roleplay</li>
+                            <li>General discussion topics</li>
+                            <li>NOT professional or expert advice</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="disclaimer-section">
+                    <h2 class="section-title"><span class="emoji">💰</span>No Financial Advice</h2>
+                    <div class="section-content">
+                        <p>Bonk16z does NOT provide financial advice. Any mentions of cryptocurrencies, investments, meme coins, or financial strategies are:</p>
+                        <ul>
+                            <li>For entertainment discussion only</li>
+                            <li>Not investment recommendations</li>
+                            <li>Not financial planning guidance</li>
+                            <li>Always consult licensed financial professionals for real advice</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="disclaimer-section">
+                    <h2 class="section-title"><span class="emoji">🏥</span>No Medical or Professional Advice</h2>
+                    <div class="section-content">
+                        <p>This AI cannot provide:</p>
+                        <ul>
+                            <li>Medical diagnosis or treatment advice</li>
+                            <li>Legal counsel or recommendations</li>
+                            <li>Professional therapy or mental health treatment</li>
+                            <li>Any advice requiring professional licensing</li>
+                        </ul>
+                        <p>For serious matters, always consult qualified professionals in the relevant field.</p>
+                    </div>
+                </div>
+
+                <div class="disclaimer-section">
+                    <h2 class="section-title"><span class="emoji">🎯</span>Accuracy and Reliability</h2>
+                    <div class="section-content">
+                        <p>AI-generated responses may contain:</p>
+                        <ul>
+                            <li>Inaccurate or outdated information</li>
+                            <li>Creative interpretations rather than facts</li>
+                            <li>Biased or incomplete perspectives</li>
+                            <li>Fictional elements presented conversationally</li>
+                        </ul>
+                        <p>Always verify important information through reliable, official sources.</p>
+                    </div>
+                </div>
+
+                <div class="disclaimer-section">
+                    <h2 class="section-title"><span class="emoji">🔒</span>Privacy and Data</h2>
+                    <div class="section-content">
+                        <p>Conversations with this AI bot:</p>
+                        <ul>
+                            <li>May be stored or logged</li>
+                            <li>Should not include personal sensitive information</li>
+                            <li>Are not private or confidential</li>
+                            <li>May be used to improve the AI system</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="disclaimer-section">
+                    <h2 class="section-title"><span class="emoji">✨</span>Use Responsibly</h2>
+                    <div class="section-content">
+                        <p>Enjoy chatting with Bonk16z, but remember:</p>
+                        <ul>
+                            <li>This is AI entertainment, not human expertise</li>
+                            <li>Use common sense and critical thinking</li>
+                            <li>Seek appropriate professional help for serious matters</li>
+                            <li>Have fun, but stay grounded in reality!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <p><strong>By using this AI bot, you acknowledge that you understand these limitations and will not rely on AI-generated content for important decisions.</strong></p>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px; font-size: 0.9rem; opacity: 0.8;">
+                    <p>Last updated: May 2025</p>
+                    <p>Questions? Contact us through our official channels.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
